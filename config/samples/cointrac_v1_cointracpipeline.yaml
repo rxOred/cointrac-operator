@@ -1,0 +1,9 @@
+apiVersion: cointrac.cointrac.operator/v1
+kind: CointracPipeline
+metadata:
+  labels:
+    app.kubernetes.io/name: cointrac-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: cointracpipeline-sample
+spec:
+  # TODO(user): Add fields here

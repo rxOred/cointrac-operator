@@ -1,0 +1,27 @@
+# permissions for end users to edit cointracpipelines.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: cointrac-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: cointracpipeline-editor-role
+rules:
+- apiGroups:
+  - cointrac.cointrac.operator
+  resources:
+  - cointracpipelines
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cointrac.cointrac.operator
+  resources:
+  - cointracpipelines/status
+  verbs:
+  - get
