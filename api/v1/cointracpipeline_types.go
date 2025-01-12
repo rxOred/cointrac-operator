@@ -23,8 +23,8 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 type API struct {
-	Endpoint string `json:"endpoint"`
-	Params   string `json:"params"`
+	Endpoint string            `json:"endpoint"`
+	Params   map[string]string `json:"params"`
 }
 
 // CointracPipelineSpec defines the desired state of CointracPipeline.

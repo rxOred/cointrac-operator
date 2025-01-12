@@ -37,6 +37,7 @@ type CointracPipelineReconciler struct {
 // +kubebuilder:rbac:groups=cointrac.cointrac.operator,resources=cointracpipelines,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=cointrac.cointrac.operator,resources=cointracpipelines/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=cointrac.cointrac.operator,resources=cointracpipelines/finalizers,verbs=update
+// +kubebuilder:rbac:groups=coordination.k8s.io,resources=leases,verbs=get;list;watch;create;update;patch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

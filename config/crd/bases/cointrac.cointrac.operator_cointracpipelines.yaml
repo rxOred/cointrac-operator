@@ -47,7 +47,9 @@ spec:
                   endpoint:
                     type: string
                   params:
-                    type: string
+                    additionalProperties:
+                      type: string
+                    type: object
                 required:
                 - endpoint
                 - params
