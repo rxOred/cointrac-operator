@@ -62,10 +62,9 @@ func (r *CointracPipelineReconciler) Reconcile(ctx context.Context, req ctrl.Req
 	}
 
 	endpoint := pipeline.Spec.API.Endpoint
-	params := pipeline.Spec.API.Params
 	schedule := pipeline.Spec.Schedule
 
-	log.Info("extracted data", "endpoint", endpoint, "params", params, "schedule", schedule)
+	log.Info("extracted data", "endpoint", endpoint, "schedule", schedule)
 
 	return ctrl.Result{}, nil
 }
