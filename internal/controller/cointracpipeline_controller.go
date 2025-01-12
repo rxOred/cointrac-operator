@@ -19,6 +19,7 @@ package controller
 import (
 	"context"
 
+	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -47,9 +48,23 @@ type CointracPipelineReconciler struct {
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.19.1/pkg/reconcile
 func (r *CointracPipelineReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-	_ = log.FromContext(ctx)
+	log := log.FromContext(ctx)
+	log.Info("Reconciling CointracPipeline", "name", req.Name)
 
-	// TODO(user): your logic here
+	var pipeline cointracv1.CointracPipeline
+	if err := r.Get(ctx, req.NamespacedName, &pipeline); err != nil {
+		if errors.IsNotFound(err) {
+			log.Info("Cointrac Resource bot found. Ignoring...")
+			return ctrl.Result{}, nil
+		}
+		log.Error(err, "Failed to get CointracPipeline Resource")
+	}
+
+	endpoint := pipeline.Spec.API.Endpoint
+	params := pipeline.Spec.API.Params
+	schedule := pipeline.Spec.Schedule
+
+	log.Info("extracted data", "endpoint", endpoint, "params", params, "schedule", schedule)
 
 	return ctrl.Result{}, nil
 }
