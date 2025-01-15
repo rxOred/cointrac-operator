@@ -1,0 +1,23 @@
+# permissions for end users to view extractorstatuses.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kator
+    app.kubernetes.io/managed-by: kustomize
+  name: extractorstatus-viewer-role
+rules:
+- apiGroups:
+  - kator.my.domain
+  resources:
+  - extractorstatuses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - kator.my.domain
+  resources:
+  - extractorstatuses/status
+  verbs:
+  - get

@@ -1,0 +1,27 @@
+# permissions for end users to edit extractors.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kator
+    app.kubernetes.io/managed-by: kustomize
+  name: extractor-editor-role
+rules:
+- apiGroups:
+  - kator.my.domain
+  resources:
+  - extractors
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - kator.my.domain
+  resources:
+  - extractors/status
+  verbs:
+  - get
