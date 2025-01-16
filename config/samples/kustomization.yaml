@@ -3,4 +3,5 @@ resources:
 - kator_v1_pipeline.yaml
 - kator_v1_extractor.yaml
 - kator_v1_extractorstatus.yaml
+- kator_v1_transformstatus.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples

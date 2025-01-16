@@ -22,6 +22,8 @@ resources:
 # default, aiding admins in cluster management. Those roles are
 # not used by the Project itself. You can comment the following lines
 # if you do not want those helpers be installed with your Project.
+- transformstatus_editor_role.yaml
+- transformstatus_viewer_role.yaml
 - extractorstatus_editor_role.yaml
 - extractorstatus_viewer_role.yaml
 - extractor_editor_role.yaml

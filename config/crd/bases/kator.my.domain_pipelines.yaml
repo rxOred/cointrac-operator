@@ -70,8 +70,34 @@ spec:
                   - name
                   type: object
                 type: array
+              transforms:
+                items:
+                  properties:
+                    after_script:
+                      items:
+                        type: string
+                      type: array
+                    before_script:
+                      items:
+                        type: string
+                      type: array
+                    image:
+                      type: string
+                    name:
+                      type: string
+                    script:
+                      type: string
+                  required:
+                  - after_script
+                  - before_script
+                  - image
+                  - name
+                  - script
+                  type: object
+                type: array
             required:
             - extractors
+            - transforms
             type: object
           status:
             description: PipelineStatus defines the observed state of Pipeline.

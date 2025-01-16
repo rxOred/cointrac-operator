@@ -132,6 +132,17 @@ func (r *ExtractorReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 		}
 	} else if pipeline.Status.Conditions[0].Status == metav1.ConditionTrue && pipeline.Status.Conditions[0].Type == "TransformReady" {
 
+		// deploy transforms
+		var pipeline katorv1.Pipeline
+		if err := r.Get(ctx, req.NamespacedName, &pipeline); err != nil {
+			if errors.IsNotFound(err) {
+				log.Info("Resource not found. Ignoring...")
+				return ctrl.Result{}, nil
+			}
+			log.Error(err, "Failed to get Pipeline resource")
+		}
+
+		//transforms := pipeline.Spec.
 	}
 
 	return ctrl.Result{}, nil

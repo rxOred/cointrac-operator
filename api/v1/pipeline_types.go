@@ -33,9 +33,18 @@ type Extractor struct {
 	API  API    `json:"api,omitempty"`
 }
 
+type Transform struct {
+	Name         string   `json:"name"`
+	Image        string   `json:"image"`
+	BeforeScript []string `json:"before_script"`
+	AfterScript  []string `json:"after_script"`
+	Script       string   `json:"script"`
+}
+
 // PipelineSpec defines the desired state of Pipeline.
 type PipelineSpec struct {
 	Extractors []Extractor `json:"extractors"`
+	Transforms []Transform `json:"transforms"`
 }
 
 // PipelineStatus defines the observed state of Pipeline.

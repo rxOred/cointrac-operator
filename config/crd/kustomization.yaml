@@ -5,6 +5,7 @@ resources:
 - bases/kator.my.domain_pipelines.yaml
 - bases/kator.my.domain_extractors.yaml
 - bases/kator.my.domain_extractorstatuses.yaml
+- bases/kator.my.domain_transformstatuses.yaml
 # +kubebuilder:scaffold:crdkustomizeresource
 
 patches:

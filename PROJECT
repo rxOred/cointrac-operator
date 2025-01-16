@@ -38,4 +38,12 @@ resources:
   kind: ExtractorStatus
   path: github.com/kator/api/v1
   version: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: my.domain
+  group: kator
+  kind: TransformStatus
+  path: github.com/kator/api/v1
+  version: v1
 version: "3"
