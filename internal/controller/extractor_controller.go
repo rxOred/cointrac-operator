@@ -36,6 +36,28 @@ type ExtractorReconciler struct {
 	Scheme *runtime.Scheme
 }
 
+func (r *ExtractorReconciler) updateExtractorStatus(ctx context.Context, req ctrl.Request, condition *metav1.Condition, extractor katorv1.Extractor) error {
+	log := log.FromContext(ctx)
+	log.Info("updateExtractorStatus", "Updating ExtractorStatus", condition.Status, extractor)
+
+	extractorName := extractor.Name
+	existing := &katorv1.ExtractorStatus{}
+	err := r.Get(ctx, client.ObjectKey{Name: extractorName, Namespace: req.Namespace}, existing)
+	if err != nil {
+		log.Info("Failed to get ExtractorStatus for Extractor", extractorName)
+		return err
+	}
+
+	existing.Status.Conditions[0] = metav1.Condition{}
+
+	if err := r.Client.Create(ctx, existing); err != nil {
+		log.Info(err.Error(), "updateExtractorStatus", "Failed to update ExtractorStatus", extractorName)
+		return err
+	}
+
+	return nil
+}
+
 func (r *ExtractorReconciler) createExtractorDeployment(ctx context.Context, req ctrl.Request, extractor katorv1.Extractor) error {
 	// extract data from the extractor and create the deployment
 	log := log.FromContext(ctx)
@@ -129,10 +151,17 @@ func (r *ExtractorReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 			if err := r.createExtractorDeployment(ctx, req, extractor); err != nil {
 				log.Error(err, "Failed to create Deployment")
 			}
+			condition := &metav1.Condition{
+				Type:    "Running",
+				Status:  metav1.ConditionTrue,
+				Reason:  "ExtractorRunning",
+				Message: "Created Deployments for Extractor",
+			}
+			r.updateExtractorStatus(ctx, req, condition, extractor)
 		}
 	} else if pipeline.Status.Conditions[0].Status == metav1.ConditionTrue && pipeline.Status.Conditions[0].Type == "TransformReady" {
 
-		// deploy transforms
+		// apply transform status CR with waiting
 		var pipeline katorv1.Pipeline
 		if err := r.Get(ctx, req.NamespacedName, &pipeline); err != nil {
 			if errors.IsNotFound(err) {
