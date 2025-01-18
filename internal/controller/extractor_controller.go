@@ -48,7 +48,7 @@ func (r *ExtractorReconciler) updateExtractorStatus(ctx context.Context, req ctr
 		return err
 	}
 
-	existing.Status.Conditions[0] = metav1.Condition{}
+	existing.Status.Conditions[0] = *condition
 
 	if err := r.Client.Create(ctx, existing); err != nil {
 		log.Info(err.Error(), "updateExtractorStatus", "Failed to update ExtractorStatus", extractorName)
